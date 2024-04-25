@@ -1,0 +1,3212 @@
+{
+	"info": {
+		"_postman_id": "f4bc6bd8-9a28-4a55-9023-1b8c0c604f65",
+		"name": "API Urban Grocers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34293914"
+	},
+	"item": [
+		{
+			"name": "Working with kits",
+			"item": [
+				{
+					"name": "Add an existing product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body have id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body have name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Body have price\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"price\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body have weight\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"weight\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body have units\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"units\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body have quantity\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"quantity\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 19,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/4/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"4",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add  non-existing product ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Message should displayed :\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productsList\": [\r\n    {\r\n      \"id\": 999999,\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add existing product ID more then 30",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Cannot POST \");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 1,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Existing product ID in to non existing kit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Cannot POST\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/8/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"8",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "with empty Product id in body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\":\"\" ,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "select 0 quantity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": 0\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product ID missing from Body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \r\n            \"quantity\": 2\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quantity missing from body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7\r\n           \r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Product List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"invalid_data\" : 1\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "with empty quantity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": \"\"\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Null product Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": null,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ID path invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": 2\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/test/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"test",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add multiple Product ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 8,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"id\": 9,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid data in Product ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": \"Product\",\r\n            \"quantity\": 2\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empty Product List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n       \"\"\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid quantity with nagative data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": -2\r\n        }\r\n       \r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add multiple product to add another exsiting kit in one request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 19,\r\n            \"quantity\": 2\r\n        },\r\n         {\r\n            \"id\": 21,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/4/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"4",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add multiple existing product ID in existing kit in 2 request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n\r\n    \"productsList1\": [\r\n        {\r\n            \"id\": 8,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add multiple products id with limit of 30 each in 2 request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productsList\": [\r\n    {\r\n      \"id\": \"@#$\",\r\n      \"quantity\": 30\r\n    }\r\n  ],\r\n\r\n  \"productsList1\": [\r\n    {\r\n      \"id\": \"@#\",\r\n      \"quantity\": 30\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/1/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Same product pultiple time in 2 request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productsList\": [\r\n    {\r\n      \"id\": 7,\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n\r\n,\r\n  \"productsList1\": [\r\n    {\r\n      \"id\": 7,\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send request as a special char in ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\":\"@##\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a product in 2 request with special char in product id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productsList\": [\r\n    {\r\n      \"id\": \"@#$\",\r\n      \"quantity\": 1\r\n    }\r\n  ],\r\n\r\n  \"productsList1\": [\r\n    {\r\n      \"id\": \"@#\",\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add multiple products with different product id as a special char",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"products List\": [\r\n    {\r\n      \"id\": \"#$$ \",\r\n      \"quantity\": 1\r\n    },\r\n{\r\n      \"id\": 7 ,\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add  existing product in existing kit string as a quantity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productsList\": [\r\n        {\r\n            \"id\": 7,\r\n            \"quantity\": \"abc\"\r\n        }\r\n    ]\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/kits/2/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kits",
+								"2",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Working with deliveries",
+			"item": [
+				{
+					"name": "deliveryTime boundary values met rage from 1-7 with correct data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"// Get the request body from the environment",
+									"const requestBody = pm.request.body.toString();",
+									"",
+									"// Define a function to extract the value of a specific XML element",
+									"function extractValueFromXML(xml, elementName) {",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);",
+									"    const match = xml.match(regex);",
+									"    if (match && match[1]) {",
+									"        return parseFloat(match[1]);",
+									"    }",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed",
+									"}",
+									"",
+									"// Extract the value of productsCount",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");",
+									"console.log(\"Products Count:\", productsCount);",
+									"",
+									"// Extract the value of productsWeight",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");",
+									"console.log(\"Products Weight:\", productsWeight);",
+									"///",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"/////////////////////////////////////////////////////////////////",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery ",
+									"const xmlResponse = pm.response.text();",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);",
+									"const clientDeliveryCost = match ? match[1] : null;",
+									"",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);",
+									"",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;",
+									"",
+									"let expectedClientDeliveryCost ;",
+									"",
+									"if (productsWeight > 2.6 || productsCount > 7) {",
+									"",
+									"    expectedClientDeliveryCost = 9 ;",
+									"} else {",
+									"    expectedClientDeliveryCost = 0  ;",
+									"}",
+									"",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);",
+									"// Validate the extracted clientDeliveryCost value",
+									"pm.test(\"clientDeliveryCost\", function() {",
+									"    pm.expect(clientDeliveryCostNumber).to.equal(parseInt(clientDeliveryCost));",
+									"});",
+									"",
+									"//////////////",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost",
+									"",
+									"const xmlResponsetwo = pm.response.text();",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;",
+									"console.log(\"Host Cost:hhh\", clientDCost);",
+									"parseInt(clientDCost)  //convert into int",
+									"",
+									"let hostDeliveryCost;",
+									"",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {",
+									"",
+									"        hostDeliveryCost = 3 ;",
+									"      } else {",
+									"        hostDeliveryCost = 7;",
+									"      }",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);",
+									"",
+									"",
+									"// Validate the extracted clientDeliveryCost value",
+									"pm.test(\"HostDeliveryCost\", function() {",
+									"    pm.expect(parseInt(clientDCost)).to.equal(HostDeliveryCostNumber);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>20</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Count as a String",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>\"abc\"</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Count with nagative value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>-1</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product ID with missing value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount></productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product weight with string value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>\"test\"</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product weight with nagative value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>-2</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product weight with missing value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight></productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delivery time with string value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>\"20\"</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delivery time with nagative value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>-20</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delivery time with missing vaue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime></deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Products Count from body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n   \r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Product weight from the body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n   \r\n    <deliveryTime>2</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Delivery time from body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    \r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Fast service requirments met rage from 1-7 when Product Weight is more than given rang",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 2.6 || productsCount > 7) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseInt(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 3;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseInt(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>10</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Fast service requirments mets delivery time for rang 1-7 is less than 25",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 2.6 || productsCount > 7) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseInt(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 3;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseInt(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>20</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Fast service requirments met delivery time is more then 30 for rang 1-7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 2.6 || productsCount > 7) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseInt(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 3;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseInt(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>35</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate  Fast delivery for rang  8-14 with valid time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 6 || productsCount > 14) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseFloat(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 14 && productsWeight <= 6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 6;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>8</productsCount>\r\n    <productsWeight>5.1</productsWeight>\r\n    <deliveryTime>25</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Fast delivery time for rang 8-14 with delivery time more then its rang",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 6 || productsCount > 14) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseFloat(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 14 && productsWeight <= 6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 6;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>14</productsCount>\r\n    <productsWeight>5.1</productsWeight>\r\n    <deliveryTime>35</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delivery time with zero or null value for rang 1-7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount>\r\n    <productsWeight>2</productsWeight>\r\n    <deliveryTime>null</deliveryTime>\r\n</InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate fast service for rang 8-14,and product weight more than 14",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"// Get the request body from the environment",
+									"const requestBody = pm.request.body.toString();",
+									"",
+									"// Define a function to extract the value of a specific XML element",
+									"function extractValueFromXML(xml, elementName) {",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);",
+									"    const match = xml.match(regex);",
+									"    if (match && match[1]) {",
+									"        return parseFloat(match[1]);",
+									"    }",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed",
+									"}",
+									"",
+									"// Extract the value of productsCount",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");",
+									"console.log(\"Products Count:\", productsCount);",
+									"",
+									"// Extract the value of productsWeight",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");",
+									"console.log(\"Products Weight:\", productsWeight);",
+									"///",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"/////////////////////////////////////////////////////////////////",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery ",
+									"const xmlResponse = pm.response.text();",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);",
+									"const clientDeliveryCost = match ? match[1] : null;",
+									"",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);",
+									"",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;",
+									"",
+									"let expectedClientDeliveryCost ;",
+									"",
+									"if (productsWeight > 6 || productsCount > 14) {",
+									"",
+									"    expectedClientDeliveryCost = 9 ;",
+									"    ",
+									"} else {",
+									"    expectedClientDeliveryCost = 0 ;",
+									"}",
+									"",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);",
+									"// Validate the extracted clientDeliveryCost value",
+									"pm.test(\"clientDeliveryCost\", function() {",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);",
+									"});",
+									"",
+									"//////////////",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost",
+									"",
+									"const xmlResponsetwo = pm.response.text();",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;",
+									"console.log(\"Host Cost:hhh\", clientDCost);",
+									"parseFloat(clientDCost)  //convert into int",
+									"",
+									"let hostDeliveryCost;",
+									"",
+									"      if (productsCount <= 14 && productsWeight <= 6 ) {",
+									"",
+									"        hostDeliveryCost = 6;",
+									"      } else {",
+									"        hostDeliveryCost = 7  ;",
+									"      }",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);",
+									"",
+									"",
+									"// Validate the extracted clientDeliveryCost value",
+									"pm.test(\"HostDeliveryCost\", function() {",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>                          \r\n    <productsCount>15</productsCount>\r\n     <productsWeight>10</productsWeight>\r\n      <deliveryTime>25</deliveryTime>\r\n       </InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Fast delivery rang 1-7, if product Count is more than 7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 2.6 || productsCount >7) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseFloat(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 3;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>                          \r\n    <productsCount>8</productsCount> \r\n    <productsWeight> 2.6</productsWeight> \r\n    <deliveryTime>25</deliveryTime> \r\n    </InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test all the boundary values of productsCount individually 1-7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const productsCountRegex = /<productsCount>(\\d+)<\\/productsCount>/;\r",
+									"const matchProductsCount = xmlResponse.match(productsCountRegex);\r",
+									"const productsCount = matchProductsCount ? parseInt(matchProductsCount[1]) : null;\r",
+									"\r",
+									"const productsWeightRegex = /<productsWeight>([\\d.]+)<\\/productsWeight>/;\r",
+									"const matchProductsWeight = xmlResponse.match(productsWeightRegex);\r",
+									"const productsWeight = matchProductsWeight ? parseFloat(matchProductsWeight[1]) : null;\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 2.6 || productsCount > 7) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = \"0\" ;\r",
+									"} else {\r",
+									"    expectedClientDeliveryCost =\"9\"  ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(expectedClientDeliveryCost).to.equal(clientDeliveryCost);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseInt(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = \"7\" ;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = \"3\";\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(hostDeliveryCost).to.equal(clientDCost);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>{{PC1}}</productsCount> \r\n    <productsWeight>2.6</productsWeight> \r\n    <deliveryTime>25</deliveryTime> \r\n    </InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test all the boundary values of productsCount individually 8-14",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 6 || productsCount > 14) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseFloat(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 14 && productsWeight <= 6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 6;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>{{PC2}}</productsCount> \r\n    <productsWeight>6</productsWeight> \r\n    <deliveryTime>25</deliveryTime> \r\n    </InputModel>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test all boundary values of productsWeight individually (1-7_",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Get the request body from the environment\r",
+									"const requestBody = pm.request.body.toString();\r",
+									"\r",
+									"// Define a function to extract the value of a specific XML element\r",
+									"function extractValueFromXML(xml, elementName) {\r",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);\r",
+									"    const match = xml.match(regex);\r",
+									"    if (match && match[1]) {\r",
+									"        return parseFloat(match[1]);\r",
+									"    }\r",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed\r",
+									"}\r",
+									"\r",
+									"// Extract the value of productsCount\r",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");\r",
+									"console.log(\"Products Count:\", productsCount);\r",
+									"\r",
+									"// Extract the value of productsWeight\r",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");\r",
+									"console.log(\"Products Weight:\", productsWeight);\r",
+									"///\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"/////////////////////////////////////////////////////////////////\r",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery \r",
+									"const xmlResponse = pm.response.text();\r",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;\r",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);\r",
+									"const clientDeliveryCost = match ? match[1] : null;\r",
+									"\r",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);\r",
+									"\r",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;\r",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);\r",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;\r",
+									"\r",
+									"let expectedClientDeliveryCost ;\r",
+									"\r",
+									"if (productsWeight > 2.6 || productsCount > 14) {\r",
+									"\r",
+									"    expectedClientDeliveryCost = 9 ;\r",
+									"    \r",
+									"} else {\r",
+									"    expectedClientDeliveryCost = 0 ;\r",
+									"}\r",
+									"\r",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);\r",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"clientDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);\r",
+									"});\r",
+									"\r",
+									"//////////////\r",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost\r",
+									"\r",
+									"const xmlResponsetwo = pm.response.text();\r",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce\r",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);\r",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;\r",
+									"console.log(\"Host Cost:hhh\", clientDCost);\r",
+									"parseFloat(clientDCost)  //convert into int\r",
+									"\r",
+									"let hostDeliveryCost;\r",
+									"\r",
+									"      if (productsCount <= 7 && productsWeight <= 2.6 ) {\r",
+									"\r",
+									"        hostDeliveryCost = 3;\r",
+									"      } else {\r",
+									"        hostDeliveryCost = 7  ;\r",
+									"      }\r",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);\r",
+									"\r",
+									"\r",
+									"// Validate the extracted clientDeliveryCost value\r",
+									"pm.test(\"HostDeliveryCost\", function() {\r",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>7</productsCount> \r\n    <productsWeight>{{PW1}}</productsWeight> \r\n    <deliveryTime>25</deliveryTime> \r\n</InputModel>\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test all boundary values of productsWeight individually (8-14)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"// Get the request body from the environment",
+									"const requestBody = pm.request.body.toString();",
+									"",
+									"// Define a function to extract the value of a specific XML element",
+									"function extractValueFromXML(xml, elementName) {",
+									"    const regex = new RegExp(`<${elementName}>([\\\\d.]+)<\\\\/${elementName}>`);",
+									"    const match = xml.match(regex);",
+									"    if (match && match[1]) {",
+									"        return parseFloat(match[1]);",
+									"    }",
+									"    return null; // Return null if the element is not found or if the value cannot be parsed",
+									"}",
+									"",
+									"// Extract the value of productsCount",
+									"const productsCount = extractValueFromXML(requestBody, \"productsCount\");",
+									"console.log(\"Products Count:\", productsCount);",
+									"",
+									"// Extract the value of productsWeight",
+									"const productsWeight = extractValueFromXML(requestBody, \"productsWeight\");",
+									"console.log(\"Products Weight:\", productsWeight);",
+									"///",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"/////////////////////////////////////////////////////////////////",
+									"/// Test 2: Check Prodct more than rang 1-7  Client delivery ",
+									"const xmlResponse = pm.response.text();",
+									"const clientDeliveryCostRegex = /clientDeliveryCost=\"(\\d+)\"/;",
+									"const match = xmlResponse.match(clientDeliveryCostRegex);",
+									"const clientDeliveryCost = match ? match[1] : null;",
+									"",
+									"console.log(\"Client Delivery Cost:\", clientDeliveryCost);",
+									"",
+									"const DeliveryTimeRegex = /<deliveryTime>([\\d.]+)<\\/deliveryTime>/;",
+									"const matchDeliveryTime = xmlResponse.match(DeliveryTimeRegex);",
+									"const DeliveryTime = matchDeliveryTime ? parseFloat(matchDeliveryTime[1]) : null;",
+									"",
+									"let expectedClientDeliveryCost ;",
+									"",
+									"if (productsWeight > 6 || productsCount > 14) {",
+									"",
+									"    expectedClientDeliveryCost = 9 ;",
+									"    ",
+									"} else {",
+									"    expectedClientDeliveryCost = 0 ;",
+									"}",
+									"",
+									"const clientDeliveryCostNumber = parseFloat(expectedClientDeliveryCost);",
+									"console.log(\"Calculated\", expectedClientDeliveryCost);",
+									"// Validate the extracted clientDeliveryCost value",
+									"pm.test(\"clientDeliveryCost\", function() {",
+									"    pm.expect(parseFloat(clientDeliveryCost)).to.equal(clientDeliveryCostNumber);",
+									"});",
+									"",
+									"//////////////",
+									"///Test 3: check Product rang more then rang of 1-7 Fast delivery  hostDeliveryCost",
+									"",
+									"const xmlResponsetwo = pm.response.text();",
+									"const clientHDC = /hostDeliveryCost=\"(\\d+)\"/;  //get value from received responce",
+									"const matchtwo = xmlResponsetwo.match(clientHDC);",
+									"const clientDCost = matchtwo ? matchtwo[1] : null;",
+									"console.log(\"Host Cost:hhh\", clientDCost);",
+									"parseFloat(clientDCost)  //convert into int",
+									"",
+									"let hostDeliveryCost;",
+									"",
+									"      if (productsCount <= 14 && productsWeight <= 6 ) {",
+									"",
+									"        hostDeliveryCost = 6;",
+									"      } else {",
+									"        hostDeliveryCost = 7  ;",
+									"      }",
+									"const HostDeliveryCostNumber = parseFloat(hostDeliveryCost);",
+									"",
+									"",
+									"// Validate the extracted clientDeliveryCost value",
+									"pm.test(\"HostDeliveryCost\", function() {",
+									"    pm.expect(parseFloat(clientDCost)).to.equal(HostDeliveryCostNumber);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<InputModel>\r\n    <productsCount>9</productsCount> \r\n    <productsWeight>{{PW2}}</productsWeight> \r\n    <deliveryTime>25</deliveryTime> \r\n</InputModel>\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{FastD}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{FastD}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
